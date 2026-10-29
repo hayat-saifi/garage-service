@@ -1,9 +1,10 @@
 package com.renault.digital.garage_service.services;
 
-import com.renault.digital.garage_service.entities.Garage;
 import com.renault.digital.garage_service.models.GarageModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 
 public interface GarageService {
@@ -12,5 +13,6 @@ public interface GarageService {
     void delete(Long  id);
     GarageModel getById(Long id);
 
-    Page<GarageModel> search(String criteria, Pageable pageable);
+    Page<GarageModel> getAll(Pageable pageable);
+    Page<GarageModel> search(String vehicleType, String accessoryType, Pageable pageable);
 }

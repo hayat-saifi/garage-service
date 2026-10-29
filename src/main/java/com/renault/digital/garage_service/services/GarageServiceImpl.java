@@ -5,7 +5,6 @@ import com.renault.digital.garage_service.models.GarageModel;
 import com.renault.digital.garage_service.repositories.GarageRepository;
 import com.renault.digital.garage_service.specifications.GarageSpecifcations;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,8 +15,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class GarageServiceImpl implements GarageService{
-   @Autowired
-   private GarageRepository garageRepository;
+
+   private final GarageRepository garageRepository;
 
     @Override
     public GarageModel create(GarageModel garageModel) {
@@ -58,9 +57,16 @@ public class GarageServiceImpl implements GarageService{
     }
 
     @Override
-    public Page<GarageModel> search(String criteria, Pageable pageable) {
-        Specification<Garage> spec = GarageSpecifcations.queryInAllFields(criteria);
-        Page<Garage> page = garageRepository.findAll(spec, pageable);
-        return page.map(GarageModel::of);
+    public Page<GarageModel> getAll(Pageable pageable) {
+        Page<Garage> garages = garageRepository.findAll(pageable);
+        return garages.map(GarageModel::of);
+    }
+
+    @Override
+    public Page<GarageModel> search(String vehicleType, String accessoryField, Pageable pageable) {
+        Specification<Garage> spec = GarageSpecifcations.searchByVehicleTypeAndAccessory(vehicleType, accessoryField);
+
+        return garageRepository.findAll(spec, pageable).map(GarageModel::of);
+
     }
 }

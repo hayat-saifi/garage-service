@@ -36,6 +36,7 @@ public record VehicleModel(
         v.setFuelType(this.fuelType);
         v.setBrand(this.brand);
         v.setYear(this.year);
+        v.setGarage(garage);
         return v;
     }
 }
