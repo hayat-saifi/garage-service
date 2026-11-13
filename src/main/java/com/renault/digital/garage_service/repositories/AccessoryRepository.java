@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface AccessoryRepository extends JpaRepository<Accessory, Long> {
 
-    List<Accessory> findByVehicleId(Long vehicleId);
-
-    boolean existsByName( String name);
+    List<Accessory> findByVehicleIdOrderById(Long vehicleId);
 }

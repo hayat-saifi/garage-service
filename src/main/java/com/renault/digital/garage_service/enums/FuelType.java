@@ -7,9 +7,4 @@ public enum FuelType {
     PETROL,
     HYBRID,
     ELECTRIC;
-
-    @JsonCreator
-    public static FuelType from(String value){
-        return FuelType.valueOf(value.trim().toUpperCase());
-    }
 }

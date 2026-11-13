@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Accessory {
 
     @Id
@@ -18,17 +17,18 @@ public class Accessory {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String nom;
 
+    @Column(length = 1000)
     private String description;
 
-    @Column(nullable = false)
-    private BigDecimal price;
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal prix;
 
-    @Column(nullable = false)
-    private  String type;
+    @Column(name = "accessory_type", nullable = false)
+    private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 

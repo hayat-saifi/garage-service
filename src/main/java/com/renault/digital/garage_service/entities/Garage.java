@@ -9,9 +9,9 @@ import java.util.List;
 
 @Entity
 @Table(name="garage")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor @AllArgsConstructor
-@Builder
 public class Garage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +32,7 @@ public class Garage {
     @OneToMany(mappedBy = "garage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vehicle> vehicles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "garage", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ElementCollection
+    @CollectionTable(name = "garage_opening_time", joinColumns = @JoinColumn(name = "garage_id"))
     private List<OpeningTime> openingTimes = new ArrayList<>();
 }

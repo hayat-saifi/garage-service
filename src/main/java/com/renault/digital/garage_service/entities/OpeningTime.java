@@ -6,30 +6,23 @@ import lombok.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-
-@Entity
-@Table(name="opening_time")
-@Data
-@NoArgsConstructor
+/**
+ * Créneau d'ouverture d'un garage. Stocké dans une table de collection :
+ * un créneau appartient à un garage
+ */
+@Embeddable
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 public class OpeningTime {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "day_of_week", nullable = false)
     private DayOfWeek dayOfWeek;
 
-    @Column(nullable = false)
+    @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
 
-    @Column(nullable = false)
+    @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "garage_id", nullable = false)
-    private Garage garage;
 }

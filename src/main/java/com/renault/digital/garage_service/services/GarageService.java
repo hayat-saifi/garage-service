@@ -1,18 +1,22 @@
 package com.renault.digital.garage_service.services;
 
-import com.renault.digital.garage_service.models.GarageModel;
-import org.springframework.data.domain.Page;
+import com.renault.digital.garage_service.dto.GarageRequest;
+import com.renault.digital.garage_service.dto.GarageResponse;
+import com.renault.digital.garage_service.dto.PageResponse;
+import com.renault.digital.garage_service.enums.FuelType;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
-
 public interface GarageService {
-    GarageModel create(GarageModel garageModel);
-    GarageModel update(Long id, GarageModel garageModel);
-    void delete(Long  id);
-    GarageModel getById(Long id);
 
-    Page<GarageModel> getAll(Pageable pageable);
-    Page<GarageModel> search(String vehicleType, String accessoryType, Pageable pageable);
+    GarageResponse createGarage(GarageRequest request);
+
+    GarageResponse getGarageById(Long id);
+
+    PageResponse<GarageResponse> getAllGarages(Pageable pageable);
+
+    GarageResponse updateGarage(Long id, GarageRequest request);
+
+    void deleteGarage(Long id);
+
+    PageResponse<GarageResponse> searchGarages(FuelType fuelType, String accessory, Pageable pageable);
 }

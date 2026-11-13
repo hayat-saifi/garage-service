@@ -1,16 +1,24 @@
 package com.renault.digital.garage_service.services;
 
-import com.renault.digital.garage_service.models.VehicleModel;
-import org.springframework.data.domain.Page;
+import com.renault.digital.garage_service.dto.PageResponse;
+import com.renault.digital.garage_service.dto.VehicleRequest;
+import com.renault.digital.garage_service.dto.VehicleResponse;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 public interface VehicleService {
 
-    VehicleModel addVehicle(Long garageId, VehicleModel vehicleModel);
-    void deleteVehicle(Long id, Long garageId);
-    VehicleModel updateVehicle(Long id,Long garageId, VehicleModel vehicleModel);
-    List<VehicleModel> getVehiclesByGarage(Long garageId);
-    Page<VehicleModel> searchVehicleModel(String brand, Integer Year, String fuelType, Pageable pageable);
+    VehicleResponse createVehicle(Long garageId, VehicleRequest request);
+
+    VehicleResponse getVehicleById(Long id);
+
+    List<VehicleResponse> getVehiclesByGarage(Long garageId);
+
+    /** Véhicules d'un modèle donné, tous garages confondus ; sans modèle, tous les véhicules. */
+    PageResponse<VehicleResponse> getVehiclesByModel(String model, Pageable pageable);
+
+    VehicleResponse updateVehicle(Long id, VehicleRequest request);
+
+    void deleteVehicle(Long id);
 }

@@ -1,0 +1,9 @@
+package com.renault.digital.garage_service.exceptions;
+
+
+public class NotFoundException extends RuntimeException {
+
+    public NotFoundException(String message) {
+        super(message);
+    }
+}

@@ -7,9 +7,14 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Un véhicule appartient à un seul garage. Un même modèle
+ * peut donc exister dans plusieurs garages : il y aura plusieurs lignes Vehicle.
+ */
 @Entity
 @Table(name="vehicle")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -22,13 +27,16 @@ public class Vehicle {
     private String brand;
 
     @Column(nullable = false)
-    private Integer year;
+    private String model;
+
+    @Column(name = "annee_fabrication", nullable = false)
+    private Integer anneeFabrication;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private FuelType fuelType;
+    @Column(name = "type_carburant", nullable = false)
+    private FuelType typeCarburant;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "garage_id", nullable = false)
     private Garage garage;
 
